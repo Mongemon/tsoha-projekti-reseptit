@@ -54,6 +54,19 @@ def update_recipe():
 
     return redirect("/recipe/" + str(recipe_id))
 
+@app.route("/remove_recipe/<int:recipe_id>", methods=["GET", "POST"])
+def remove_recipe(recipe_id):
+    if request.method == "GET":
+        recipe = recipes.get_recipe(recipe_id)
+        return render_template("remove_recipe.html", recipe=recipe)
+    if request.method == "POST":
+        if "remove" in request.form:
+            recipes.remove_recipe(recipe_id)
+            return redirect("/")
+        else:
+            return redirect("/recipe/" + str(recipe_id))
+
+
 
 @app.route("/register")
 def register():

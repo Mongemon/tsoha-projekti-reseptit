@@ -11,6 +11,7 @@
   {% if session.user_id == recipe.user_id%}
   <p>
     <a href="/edit_recipe/{{ recipe.id}}"> Muokkaa </a>
+    <a href="/remove_recipe/{{ recipe.id}}"> Poista </a>
   </p>
   {% endif %}
 
