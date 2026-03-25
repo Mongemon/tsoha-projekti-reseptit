@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 import config
 import db
+import recipes
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -25,9 +26,7 @@ def create_item():
     instructions = request.form["instructions"]
     user_id = session["user_id"]
 
-    sql = """INSERT INTO recipes (title, description, ingredients, instructions,
-        user_id) VALUES (?, ?, ?, ?, ?)"""
-    db.execute(sql, [title, description, ingredients, instructions, user_id])
+    recipes.add_recipe(title, description, ingredients, instructions, user_id)
 
     return redirect("/")
 
