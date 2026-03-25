@@ -17,14 +17,20 @@
     <a href="/login">Kirjaudu sisään</a>
     <a href="/register">Luo tunnus</a>
     <a href="/logout">Kirjaudu ulos</a>
-
   </p>
+
+  <p>
     <a href="/new_item">Uusi ilmoitus</a>
   </p>
 
+  <h1>Reseptejä</h1>
+  <ul>
+    {% for recipe in recipes %}
+    <li><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></li>
+    {% endfor %}
+  </ul>
 
 
-  <p/>
 </body>
 
 </html>
