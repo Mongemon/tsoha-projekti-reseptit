@@ -46,9 +46,17 @@ def create_item():
     require_login()
 
     title = request.form["title"]
+    if not title or len(title) > 50:
+        abort(403)
     description = request.form["description"]
+    if not description or len(description) > 500:
+        abort(403)
     ingredients = request.form["ingredients"]
+    if not ingredients or len(ingredients) > 1000:
+        abort(403)
     instructions = request.form["instructions"]
+    if not instructions or len(instructions) > 2000:
+        abort(403)
     user_id = session["user_id"]
 
     recipes.add_recipe(title, description, ingredients, instructions, user_id)
@@ -74,10 +82,19 @@ def update_recipe():
         abort(404)
     if recipe["user_id"] != session["user_id"]:
         abort(403)
+
     title = request.form["title"]
+    if not title or len(title) > 50:
+        abort(403)
     description = request.form["description"]
+    if not description or len(description) > 500:
+        abort(403)
     ingredients = request.form["ingredients"]
+    if not ingredients or len(ingredients) > 1000:
+        abort(403)
     instructions = request.form["instructions"]
+    if not instructions or len(instructions) > 2000:
+        abort(403)
     user_id = session["user_id"]
 
     recipes.update_recipe(recipe_id, title, description, ingredients, instructions)
