@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Käyttäjä {{ user.username }}</title>
+</head>
+
+<body>
+  <h1>Käyttäjä {{ user.username }}</h1>
+
+  <p>
+    Käyttäjällä on yhteensä {{ recipes | count }} ilmoitusta.
+  </p>
+
+  <ul>
+    {% for recipe in recipes %}
+    <li><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></li>
+    {% endfor %}
+  </ul>
+  <p>
+    <a href="/">Takaisin</a>
+  </p>
+
+
+</body>
+
+</html>
