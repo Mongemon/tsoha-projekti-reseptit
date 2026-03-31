@@ -26,7 +26,18 @@
       ohje: <br />
       <textarea name = "instructions" rows="15" cols="60" maxlength=2000 required></textarea>
     </p>
-    
+
+    {% for class in classes %}
+    <p>
+      {{class}}: <br />
+      <select name="classes">
+        <option value="">(valitse)</option>
+      {% for option in classes[class] %}
+        <option value="{{ class }}:{{ option }}">{{ option }}</option>
+      {% endfor %}
+      </select>
+    </p>
+    {% endfor %}
     
     <input type="submit" value="Lisää resepti" />
   </form>
