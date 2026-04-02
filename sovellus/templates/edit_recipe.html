@@ -26,6 +26,22 @@
       ohje: <br />
       <textarea name = "instructions" rows="15" cols="60" maxlength="2000" required>{{recipe.instructions}}</textarea>
     </p>
+
+    {% for class in all_classes %}
+    <p>
+      {{class}}: <br />
+      <select name="classes">
+        <option value="">(valitse)</option>
+      {% for option in all_classes[class] %}
+        {% if classes[class] == option %}
+        <option value="{{ class }}:{{ option }}" selected>{{ option }}</option>
+        {% else %}
+        <option value="{{ class }}:{{ option }}">{{ option }}</option>
+        {% endif %}
+      {% endfor %}
+      </select>
+    </p>
+    {% endfor %}
     
     <input type="hidden" name="recipe_id" value="{{ recipe.id }}" />
     <input type="submit" value="Päivitä resepti" />
