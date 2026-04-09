@@ -22,6 +22,14 @@ def add_recipe(title, description, ingredients, instructions, user_id, classes):
 	for title, value in classes:
 		db.execute(sql, [recipe_id, title, value])
 
+def add_comment(recipe_id, user_id, comment, grade):
+	sql = """INSERT INTO comments (recipe_id, user_id, comment)
+			 VALUES (?, ?, ?)"""
+	db.execute(sql, [recipe_id, user_id, comment])
+
+	sql = "INSERT INTO grades (recipe_id, user_id, grade) VALUES (?, ?, ?)"
+	db.execute(sql, [recipe_id, user_id, grade])
+
 def get_classes(recipe_id):
 	sql = "SELECT title, value FROM recipe_classes WHERE recipe_id =?"
 	return db.query(sql, [recipe_id])
@@ -43,6 +51,27 @@ def get_recipe(recipe_id):
 					recipes.id = ?"""
 	result = db.query(sql, [recipe_id])
 	return result[0] if result else None
+
+def get_comments(recipe_id):
+	sql = """SELECT comments.comment, users.id user_id, users.username
+			 FROM comments, users
+			 WHERE comments.recipe_id = ? AND comments.user_id = users.id
+			 ORDER BY comments.id DESC"""
+	return db.query(sql, [recipe_id])
+
+def get_meangrade(recipe_id):
+	sql = """SELECT AVG(grade)
+			 FROM grades
+			 WHERE recipe_id = ?"""
+	result = db.query(sql, [recipe_id])
+	return f"{result[0][0]:.1f}" if result and result[0][0] is not None else None
+
+def get_comment(recipe_id):
+	sql = """SELECT comments.comment, users.id, users.username
+			 FROM comments, users
+			 WHERE comments.recipe_id = ? AND comments.user_id = users.id
+			 ORDER BY comments.id DESC"""
+	return db.query(sql, [item_id])
 
 def update_recipe(recipe_id, title, description, ingredients, instructions, classes):
 	sql = """UPDATE recipes SET title = ?,

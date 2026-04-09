@@ -5,6 +5,7 @@ import config
 import db
 import recipes
 import users
+import re
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -43,7 +44,9 @@ def show_recipe(recipe_id):
     if not recipe:
         abort(404)
     classes = recipes.get_classes(recipe_id)
-    return render_template("show_recipe.html", recipe=recipe, classes = classes)
+    comments = recipes.get_comments(recipe_id)
+    meangrade = recipes.get_meangrade(recipe_id)
+    return render_template("show_recipe.html", recipe=recipe, classes = classes, comments = comments, meangrade = meangrade)
 
 @app.route("/new_item")
 def new_item():
@@ -84,6 +87,35 @@ def create_item():
     recipes.add_recipe(title, description, ingredients, instructions, user_id, classes)
 
     return redirect("/")
+
+
+@app.route("/create_comment", methods=["POST"])
+def create_comment():
+    require_login()
+
+    comment= request.form["comment"]
+    if not comment or len(comment) > 500:
+        print("eka")
+        abort(403)
+    grade = request.form["grade"]
+    try:
+        grad = int(grade)
+        if 1 <= grad and grad <= 10:
+            grad = 2
+        else:
+            raise ValueError
+    except (ValueError, TypeError):
+        print("täsä")
+        abort(403)
+
+    recipe_id = request.form["recipe_id"]
+    if not recipe_id:
+        abort(404)
+    user_id = session["user_id"]
+
+    recipes.add_comment(recipe_id, user_id, comment, grade)
+
+    return redirect("/recipe/" + str(recipe_id))
 
 
 @app.route("/edit_recipe/<int:recipe_id>")
