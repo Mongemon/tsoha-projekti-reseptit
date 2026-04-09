@@ -14,10 +14,15 @@
 
   {% if session.user_id == recipe.user_id%}
   <p>
-    <a href="/edit_recipe/{{ recipe.id}}"> Muokkaa </a>
-    <a href="/remove_recipe/{{ recipe.id}}"> Poista </a>
+    <a href="/edit_recipe/{{ recipe.id }}"> Muokkaa </a>
+    <a href="/remove_recipe/{{ recipe.id }}"> Poista </a>
+    <a href="/images/{{ recipe.id }}"> Kuvat </a>
   </p>
   {% endif %}
+
+   {% for image in images %}
+   <img src="/image/{{ image.id }}" />
+   {% endfor %}
 
   <p> 
     {{ recipe.description }}

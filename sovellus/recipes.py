@@ -74,6 +74,19 @@ def has_commented(recipe_id, user_id):
 	result = db.query(sql, [recipe_id, user_id])
 	return bool(result)
 
+def get_images(recipe_id):
+	sql = "SELECT id FROM images WHERE recipe_id = ?"
+	return db.query(sql, [recipe_id])
+
+def add_image(recipe_id, image):
+	sql = "INSERT INTO images (recipe_id, image) VALUES (?, ?)"
+	db.execute(sql, [recipe_id, image])
+
+def get_image(image_id):
+	sql = "SELECT image FROM images WHERE id = ?"
+	result = db.query(sql, [image_id])
+	return result[0][0] if result else None
+
 def update_recipe(recipe_id, title, description, ingredients, instructions, classes):
 	sql = """UPDATE recipes SET title = ?,
 							  description = ?,
