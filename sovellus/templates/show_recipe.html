@@ -42,14 +42,18 @@
   </p>
   {% endif %}
 
+  {% if comments %}
   <h2>Kommentit</h2>
   <ul>
     {% for comment in comments %}
     <li><a href="/user/{{ comment.user_id }}">{{ comment.username }}</a> - {{ comment.comment }} </li>
     {% endfor %}
   </ul>
+  {% endif %}
 
+  {% if not has_commented and user_id is not none %}
   <h2>Uusi kommentti</h2>
+  <p>(huom. voit kommentoida vain kerran)</p>
   <form action="/create_comment" method="post">
     <p>
     Kommentti :<br />
@@ -63,6 +67,7 @@
     <p>
       <input type="submit" value="Kommentoi" />
     </p>
+  {% endif %}
 
 
   <p>

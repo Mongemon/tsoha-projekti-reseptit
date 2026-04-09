@@ -66,12 +66,13 @@ def get_meangrade(recipe_id):
 	result = db.query(sql, [recipe_id])
 	return f"{result[0][0]:.1f}" if result and result[0][0] is not None else None
 
-def get_comment(recipe_id):
-	sql = """SELECT comments.comment, users.id, users.username
-			 FROM comments, users
-			 WHERE comments.recipe_id = ? AND comments.user_id = users.id
-			 ORDER BY comments.id DESC"""
-	return db.query(sql, [item_id])
+def has_commented(recipe_id, user_id):
+	sql = """SELECT comment
+			 FROM comments
+			 WHERE recipe_id = ? AND user_id = ?
+			 LIMIT 1"""
+	result = db.query(sql, [recipe_id, user_id])
+	return bool(result)
 
 def update_recipe(recipe_id, title, description, ingredients, instructions, classes):
 	sql = """UPDATE recipes SET title = ?,

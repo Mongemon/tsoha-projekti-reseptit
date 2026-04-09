@@ -46,7 +46,13 @@ def show_recipe(recipe_id):
     classes = recipes.get_classes(recipe_id)
     comments = recipes.get_comments(recipe_id)
     meangrade = recipes.get_meangrade(recipe_id)
-    return render_template("show_recipe.html", recipe=recipe, classes = classes, comments = comments, meangrade = meangrade)
+
+    if "user_id" in session:
+        user_id = session["user_id"]
+    else:
+        user_id = None
+    has_commented = recipes.has_commented(recipe_id, user_id)
+    return render_template("show_recipe.html", recipe=recipe, classes = classes, comments = comments, meangrade = meangrade, has_commented = has_commented, user_id = user_id)
 
 @app.route("/new_item")
 def new_item():
@@ -95,7 +101,6 @@ def create_comment():
 
     comment= request.form["comment"]
     if not comment or len(comment) > 500:
-        print("eka")
         abort(403)
     grade = request.form["grade"]
     try:
@@ -105,7 +110,6 @@ def create_comment():
         else:
             raise ValueError
     except (ValueError, TypeError):
-        print("täsä")
         abort(403)
 
     recipe_id = request.form["recipe_id"]
