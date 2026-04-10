@@ -87,6 +87,10 @@ def get_image(image_id):
 	result = db.query(sql, [image_id])
 	return result[0][0] if result else None
 
+def remove_image(recipe_id, image_id):
+	sql = "DELETE FROM images WHERE id = ? AND recipe_id =?"
+	db.execute(sql, [image_id, recipe_id])
+
 def update_recipe(recipe_id, title, description, ingredients, instructions, classes):
 	sql = """UPDATE recipes SET title = ?,
 							  description = ?,
