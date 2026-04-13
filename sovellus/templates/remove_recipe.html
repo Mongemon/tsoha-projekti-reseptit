@@ -1,23 +1,17 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Reseptin poisto</title>
-</head>
+{% block title %}Poista resepti{% endblock %}
 
-<body>
-  <h1>Reseptin poisto</h1>
-  <p>Resepti: {{ recipe.title }} </p>
-  <p>Haluatko varmasti poistaa tämän reseptin
-  ?</p>
+{% block content %}
+<h2>Reseptin poisto</h2>
+<p>Resepti: {{ recipe.title }} </p>
+<p>Haluatko varmasti poistaa tämän reseptin
+?</p>
 
-  <form action="/remove_recipe/{{ recipe.id }}" method="post">
-    <input type="submit" name="remove" value="poista resepti">
-    <input type="submit" name="back" value="palaa takaisin">
+<form action="/remove_recipe/{{ recipe.id }}" method="post">
+  <input type="submit" name="remove" value="poista resepti">
+  <input type="submit" name="back" value="palaa takaisin">
 
 
-  </form>
-
-</body>
-
-</html>
+</form>
+{% endblock %}

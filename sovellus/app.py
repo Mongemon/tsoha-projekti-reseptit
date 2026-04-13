@@ -278,7 +278,11 @@ def create():
     except sqlite3.IntegrityError:
         return "VIRHE: tunnus on jo varattu"
 
-    return "Tunnus luotu"
+    return """
+    <h2>Tunnus luotu</h2>
+    <a href="/">Takaisin</a>
+    """
+
 
 
 @app.route("/login", methods=["GET", "POST"])
