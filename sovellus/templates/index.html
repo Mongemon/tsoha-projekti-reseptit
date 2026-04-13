@@ -7,9 +7,12 @@
 
 <h2>Reseptejä</h2>
 <ul>
-  {% for recipe in recipes %}
-  <li><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></li>
-  {% endfor %}
+{% for recipe in recipes %}
+<div class="recipe">
+<a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a> <br />
+Tekijä: <a href="/user/{{ recipe.user_id }}">{{ recipe.username }}</a>
+</div>
+{% endfor %}
 </ul>
 
 

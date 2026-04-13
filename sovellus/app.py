@@ -16,7 +16,7 @@ def require_login():
 
 @app.route("/")
 def index():
-    all_recipes = recipes.get_recipes()
+    all_recipes = recipes.get_recipeinfo()
     return render_template("index.html", recipes = all_recipes)
 
 @app.route("/user/<int:user_id>")
