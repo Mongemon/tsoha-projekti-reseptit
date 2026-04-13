@@ -101,9 +101,9 @@ def create_item():
                 abort(403)
             classes.append((class_title, class_value))
 
-    recipes.add_recipe(title, description, ingredients, instructions, user_id, classes)
+    recipe_id = recipes.add_recipe(title, description, ingredients, instructions, user_id, classes)
 
-    return redirect("/")
+    return redirect("/recipe/" + str(recipe_id))
 
 
 @app.route("/create_comment", methods=["POST"])
