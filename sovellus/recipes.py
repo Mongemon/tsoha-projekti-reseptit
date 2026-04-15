@@ -119,6 +119,15 @@ def remove_recipe(recipe_id):
 	sql = "DELETE FROM recipe_classes WHERE recipe_id = ?"
 	db.execute(sql, [recipe_id])
 
+	sql = "DELETE FROM images WHERE recipe_id = ?"
+	db.execute(sql, [recipe_id])
+
+	sql = "DELETE FROM comments WHERE recipe_id = ?"
+	db.execute(sql, [recipe_id])
+
+	sql = "DELETE FROM grades WHERE recipe_id = ?"
+	db.execute(sql, [recipe_id])
+
 	sql = "DELETE FROM recipes WHERE id = ?"
 	db.execute(sql, [recipe_id])
 
