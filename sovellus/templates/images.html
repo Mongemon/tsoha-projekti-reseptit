@@ -3,7 +3,8 @@
 {% block title %}Ilmoituksen kuvat{% endblock %}
 
 {% block content %}
-<h2>Ilmoituksen kuvat</h2>
+<h2>{{ recipe.title }}</h2>
+<h3>Ilmoituksen kuvat</h3>
 
 <p>
   Ilmoituksessa on {{ images | count }} kuvaa.
@@ -22,7 +23,7 @@
 
 </form>
 
-<h2>Lisää uusi kuva</h2>
+<h3>Lisää uusi kuva</h3>
 <form action="/add_image" method="post" enctype="multipart/form-data">
   <p>
     Kuva: <input type="file" name="image" accept=".jpg" />
@@ -34,6 +35,6 @@
 
 
 <p>
-  <a href="/recipe/{{ recipe_id }}">Takaisin</a>
+  <a href="/recipe/{{ recipe_id }}">Takaisin ilmoitukseen</a>
 </p>
 {% endblock %}

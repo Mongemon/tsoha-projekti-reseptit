@@ -3,8 +3,8 @@
 {% block title %}Poista resepti{% endblock %}
 
 {% block content %}
-<h2>Reseptin poisto</h2>
-<p>Resepti: {{ recipe.title }} </p>
+<h2>{{ recipe.title }}</h2>
+<h3>Reseptin poisto</h3>
 <p>Haluatko varmasti poistaa tämän reseptin
 ?</p>
 
@@ -12,6 +12,10 @@
   <input type="submit" name="remove" value="poista resepti">
   <input type="submit" name="back" value="palaa takaisin">
 
-
 </form>
+
+<p>
+  Resepti: <a href="/recipe/{{ recipe.id }}">Takaisin ilmoitukseen</a>
+</p>
+
 {% endblock %}
