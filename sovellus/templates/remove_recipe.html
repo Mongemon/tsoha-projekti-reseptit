@@ -9,13 +9,14 @@
 ?</p>
 
 <form action="/remove_recipe/{{ recipe.id }}" method="post">
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
   <input type="submit" name="remove" value="poista resepti">
   <input type="submit" name="back" value="palaa takaisin">
 
 </form>
 
 <p>
-  Resepti: <a href="/recipe/{{ recipe.id }}">Takaisin ilmoitukseen</a>
+  Resepti: <a href="/recipe/{{ recipe.id }}">Takaisin reseptiin</a>
 </p>
 
 {% endblock %}

@@ -17,6 +17,7 @@
   <br />
   {% endfor %}
   <input type="hidden" name="recipe_id" value="{{ recipe.id }}" />
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
   <p>
     <input type="submit" value="Poista valitut" />
   </p>
@@ -29,12 +30,13 @@
     Kuva: <input type="file" name="image" accept=".jpg" />
   </p>
   <input type="hidden" name="recipe_id" value="{{ recipe_id }}">
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
   <input type="submit" value="Lähetä" />
 </form>
 
 
 
 <p>
-  <a href="/recipe/{{ recipe_id }}">Takaisin ilmoitukseen</a>
+  <a href="/recipe/{{ recipe_id }}">Takaisin reseptiin</a>
 </p>
 {% endblock %}

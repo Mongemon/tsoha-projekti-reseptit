@@ -41,11 +41,12 @@
   </p>
   {% endfor %}
   <input type="hidden" name="recipe_id" value="{{ recipe.id }}" />
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
   <input type="submit" value="Päivitä resepti" />
 </form>
 
 <p>
-  Resepti: <a href="/recipe/{{ recipe.id }}">Takaisin ilmoitukseen</a>
+  Resepti: <a href="/recipe/{{ recipe.id }}">Takaisin reseptiin</a>
 </p>
 
 {% endblock %}
