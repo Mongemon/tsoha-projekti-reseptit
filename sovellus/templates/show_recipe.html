@@ -6,7 +6,7 @@
 <h2>{{ recipe.title }}</h2>
 
 {% if meangrade %}
-<p> Keskimääräinen arvosana: {{ meangrade }} </p>
+<p> Arvosana: {{ meangrade }} </p>
 {% endif %}
 
 {% if session.user_id == recipe.user_id%}

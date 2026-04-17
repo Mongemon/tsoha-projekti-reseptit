@@ -2,7 +2,6 @@ import sqlite3
 from flask import Flask
 from flask import abort, flash, make_response, redirect, render_template, request, session
 import config
-import db
 import recipes
 import users
 import re
@@ -294,6 +293,12 @@ def create():
     password2 = request.form["password2"]
     if password1 != password2:
         flash("VIRHE: salasanat eivät ole samat")
+        return redirect("/register")
+    if username == "" or password1 == "":
+        flash("VIRHE: tunnus tai salasana ei voi olla tyhjä")
+        return redirect("/register")
+    if " " in username or " " in password1:
+        flash("VIRHE: välilyönti ei ole sallittu käyttäjätunnuksessa eikä salasanassa")
         return redirect("/register")
 
     try:
