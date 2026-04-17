@@ -18,17 +18,17 @@
 {% endif %}
 
  {% for image in images %}
- <img src="/image/{{ image.id }}" />
+ <img src="/image/{{ image.id }}" alt="Reseptin kuva" />
  {% endfor %}
 
 <p>
-  {{ recipe.description }}
+  {{ recipe.description | show_lines }}
 </p>
 <p>
-  <b>Ainesosat:</b> {{ recipe.ingredients }}
+  <b>Ainesosat:</b> {{ recipe.ingredients | show_lines }}
 </p>
 <p>
-  <b>Ohjeet:</b> {{ recipe.instructions }}
+  <b>Ohjeet:</b> {{ recipe.instructions | show_lines }}
 </p>
 <p>
   <b>Tekijä:</b> <a href="/user/{{ recipe.user_id }}">{{ recipe.username }}</a>
@@ -48,7 +48,7 @@
 <h3>Kommentit</h3>
 <ul>
   {% for comment in comments %}
-  <li><a href="/user/{{ comment.user_id }}">{{ comment.username }}</a> - {{ comment.comment }} </li>
+  <li><a href="/user/{{ comment.user_id }}">{{ comment.username }}</a> - {{ comment.comment | show_lines }} </li>
   {% endfor %}
 </ul>
 {% endif %}
