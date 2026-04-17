@@ -58,12 +58,12 @@
 <p>(huom. voit kommentoida vain kerran)</p>
 <form action="/create_comment" method="post">
   <p>
-  Kommentti :<br />
-    <textarea name = "comment" rows="8" cols="60" maxlength="500" required></textarea>
+    <label for="comment">Kommentti</label> :<br />
+    <textarea name = "comment" id="comment"rows="8" cols="60" maxlength="500" required></textarea>
   </p>
   <p>
-    Arvosana: <br />
-    <input type="number" name="grade" min="1" max="10" required />
+    <label for="grade">Arvosana</label>: <br />
+    <input type="number" name="grade" id="grade" min="1" max="10" required />
   </p>
   <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
   <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
