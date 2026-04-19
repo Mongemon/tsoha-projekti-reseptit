@@ -13,13 +13,13 @@
 * Käyttäjä pystyy antamaan reseptille kommentin ja arvosanan. Reseptistä näytetään kommentit ja keskimääräinen arvosana.
 
 ## Sovelluksen asennus
-...
+```
 git clone https://github.com/Mongemon/tsoha-projekti-reseptit
 python3 -m venv venv
 source venv/bin/activate
 pip install flask
-cd sovellus
+cd tsoha-projekti-reseptit/sovellus
 sqlite3 database.db < schema.sql
 sqlite3 database.db < init.sql
 flask run
-...
+```
