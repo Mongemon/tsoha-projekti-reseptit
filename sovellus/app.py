@@ -307,10 +307,7 @@ def create():
         flash("VIRHE: tunnus on jo varattu")
         return redirect("/register")
 
-    return """
-    <h2>Tunnus luotu</h2>
-    <a href="/">Takaisin</a>
-    """
+    return render_template("register_successful.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
