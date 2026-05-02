@@ -67,7 +67,9 @@ def show_recipe(recipe_id):
         user_id = None
     has_commented = recipes.has_commented(recipe_id, user_id)
     images = recipes.get_images(recipe_id)
-    return render_template("show_recipe.html", recipe=recipe, classes = classes, comments = comments, meangrade = meangrade, has_commented = has_commented, user_id = user_id, images = images)
+    return render_template("show_recipe.html", recipe=recipe, classes = classes, 
+        comments = comments, meangrade = meangrade, has_commented = has_commented, 
+        user_id = user_id, images = images)
 
 @app.route("/image/<int:image_id>")
 def show_image(image_id):
@@ -116,7 +118,8 @@ def create_item():
                 abort(403)
             classes.append((class_title, class_value))
 
-    recipe_id = recipes.add_recipe(title, description, ingredients, instructions, user_id, classes)
+    recipe_id = recipes.add_recipe(title, description, ingredients, 
+                                   instructions, user_id, classes)
 
     return redirect("/recipe/" + str(recipe_id))
 
@@ -163,7 +166,8 @@ def edit_recipe(recipe_id):
         classes[my_class] = ""
     for entry in recipes.get_classes(recipe_id):
         classes[entry["title"]] = entry["value"]
-    return render_template("edit_recipe.html", recipe=recipe, classes = classes, all_classes = all_classes)
+    return render_template("edit_recipe.html", recipe=recipe, classes = classes, 
+                                               all_classes = all_classes)
 
 @app.route("/images/<int:recipe_id>")
 def edit_images(recipe_id):
@@ -176,7 +180,8 @@ def edit_images(recipe_id):
 
     images = recipes.get_images(recipe_id)
 
-    return render_template("images.html", recipe = recipe, recipe_id = recipe_id, images = images)
+    return render_template("images.html", recipe = recipe, recipe_id = recipe_id, 
+                                          images = images)
 
 @app.route("/add_image", methods=["POST"])
 def add_image():
