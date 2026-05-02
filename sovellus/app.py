@@ -1,12 +1,14 @@
+import secrets
 import sqlite3
+
 from flask import Flask
 from flask import abort, flash, make_response, redirect, render_template, request, session
+import markupsafe
+
 import config
 import recipes
 import users
-import re
-import secrets
-import markupsafe
+
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -67,8 +69,8 @@ def show_recipe(recipe_id):
         user_id = None
     has_commented = recipes.has_commented(recipe_id, user_id)
     images = recipes.get_images(recipe_id)
-    return render_template("show_recipe.html", recipe=recipe, classes = classes, 
-        comments = comments, meangrade = meangrade, has_commented = has_commented, 
+    return render_template("show_recipe.html", recipe=recipe, classes = classes,
+        comments = comments, meangrade = meangrade, has_commented = has_commented,
         user_id = user_id, images = images)
 
 @app.route("/image/<int:image_id>")
@@ -118,7 +120,7 @@ def create_item():
                 abort(403)
             classes.append((class_title, class_value))
 
-    recipe_id = recipes.add_recipe(title, description, ingredients, 
+    recipe_id = recipes.add_recipe(title, description, ingredients,
                                    instructions, user_id, classes)
 
     return redirect("/recipe/" + str(recipe_id))
@@ -166,7 +168,7 @@ def edit_recipe(recipe_id):
         classes[my_class] = ""
     for entry in recipes.get_classes(recipe_id):
         classes[entry["title"]] = entry["value"]
-    return render_template("edit_recipe.html", recipe=recipe, classes = classes, 
+    return render_template("edit_recipe.html", recipe=recipe, classes = classes,
                                                all_classes = all_classes)
 
 @app.route("/images/<int:recipe_id>")
@@ -180,7 +182,7 @@ def edit_images(recipe_id):
 
     images = recipes.get_images(recipe_id)
 
-    return render_template("images.html", recipe = recipe, recipe_id = recipe_id, 
+    return render_template("images.html", recipe = recipe, recipe_id = recipe_id,
                                           images = images)
 
 @app.route("/add_image", methods=["POST"])
@@ -249,7 +251,6 @@ def update_recipe():
     instructions = request.form["instructions"]
     if not instructions or len(instructions) > 2000:
         abort(403)
-    user_id = session["user_id"]
 
     all_classes = recipes.get_all_classes()
 
@@ -284,8 +285,7 @@ def remove_recipe(recipe_id):
         if "remove" in request.form:
             recipes.remove_recipe(recipe_id)
             return redirect("/")
-        else:
-            return redirect("/recipe/" + str(recipe_id))
+        return redirect("/recipe/" + str(recipe_id))
 
 @app.route("/register")
 def register():
@@ -330,9 +330,8 @@ def login():
             session["username"] = username
             session["csrf_token"] = secrets.token_hex(16)
             return redirect("/")
-        else:
-            flash("VIRHE: väärä tunnus tai salasana")
-            return redirect("/login")
+        flash("VIRHE: väärä tunnus tai salasana")
+        return redirect("/login")
 
 @app.route("/logout")
 def logout():
